@@ -1,37 +1,52 @@
 class BuildsController < ApplicationController
 
-  # GET: /builds
-  get "/builds" do
-    erb :"/builds/index.html"
+  get '/builds/new' do
+    erb :'/builds/new'
   end
 
-  # GET: /builds/new
-  get "/builds/new" do
-    erb :"/builds/new.html"
+  post '/builds' do
+    build = current_user.builds.build(params)
+    if !build.title.empty?
+      build.save 
+      redirect '/builds'
+    else
+      @error = "Entry invalid, Please Try Again"
+      erb :'/builds/new'
+    end
   end
 
-  # POST: /builds
-  post "/builds" do
-    redirect "/builds"
+  get '/builds' do
+    @builds = Build.all.reverse
+    erb :'builds/index'
   end
 
-  # GET: /builds/5
-  get "/builds/:id" do
-    erb :"/builds/show.html"
+  get '/builds/:id' do
+    @build = Build.find_by(id: params[:id])
+    if @build
+      erb :'builds/show'
+    else
+      redirect '/builds'
+    end
   end
 
-  # GET: /builds/5/edit
-  get "/builds/:id/edit" do
-    erb :"/builds/edit.html"
+  get '/builds/:id/edit' do
+    if logged_in?
+      @build = Build.find(params[:id])
+      erb :'/builds/edit'
+    else
+      redirect '/login'
+    end
   end
 
-  # PATCH: /builds/5
-  patch "/builds/:id" do
-    redirect "/builds/:id"
+  patch '/builds/:id' do
+    @build = Build.find(params[:id])
+    @build.update(params["build"])
+    redirect "/builds/#{params[:id]}"
   end
 
-  # DELETE: /builds/5/delete
-  delete "/builds/:id/delete" do
-    redirect "/builds"
+  delete '/builds/:id' do
+    build = Build.find(params[:id])
+    build.destroy
+    redirect '/builds'
   end
 end

@@ -1,0 +1,8 @@
+<h1>Builds</h1>
+<a href="/builds/new">Create a Build</a>
+<% @builds.each do |build| %>
+<h2><a href="/builds/<%= build.id %>"><%= build.title %></a></h2>
+<% if current_user == build.user %>
+  <button><a href="/builds/<%= build.id %>/edit">Edit</a></button>
+  <% end %>
+<% end %>

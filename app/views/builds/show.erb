@@ -1,0 +1,27 @@
+<h1>Build Name: <%= @build.title %></h1>
+<br>
+<h2>Character Class: <%= @build.character_klass %></h2>
+<h2>Helm: <%= @build.helm %></h2>
+<h2>Shoulders: <%= @build.shoulders %></h2>
+<h2>Gloves: <%= @build.gloves %></h2>
+<h2>Chest Armor: <%= @build.chest_armor %></h2>
+<h2>Belt: <%= @build.belt %></h2>
+<h2>Pants: <%= @build.pants %></h2>
+<h2>Boots: <%= @build.boots %></h2>
+<h2>Bracers: <%= @build.bracers %></h2>
+<h2>Amulet: <%= @build.amulet %></h2>
+<h2>Ring 1: <%= @build.ring_1 %></h2>
+<h2>Ring 2: <%= @build.ring_2 %></h2>
+<h2>Weapon: <%= @build.weapon %></h2>
+<h2>Offhand: <%= @build.offhand %></h2>
+<h2>Gem Notes: <%= @build.gem_notes %></h2>
+<h2>Kanai's Cube: <%= @build.kanais_cube %></h2>
+<h2>Active Skills: <%= @build.active_skills %></h2>
+<h2>Passive Skills: <%= @build.passive_skills %></h2>
+<h2>General Build Notes: <%= @build.general_build_notes %></h2>
+<form action="/builds/<%= @build.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <% if @build.user == current_user %>
+    <button type="submit">Delete Build</button>
+  <% end %>
+</form>
